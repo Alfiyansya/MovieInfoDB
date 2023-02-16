@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
-import com.alfiansyah.movieinfodb.HomeActivity
+import com.alfiansyah.movieinfodb.ui.home.HomeActivity
 import com.alfiansyah.movieinfodb.databinding.ActivitySplashScreenBinding
 
 @SuppressLint("CustomSplashScreen")

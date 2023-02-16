@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">MovieInfoDB</string>
     <string name="ic_logo">startup logo apps</string>
+    <string name="genre">Genre</string>
+    <string name="opening_greeting">Welcome, choose your movie genre first!</string>
+    <string name="check_internet">oops, please check your internet connection</string>
+    <string name="genres">Genres</string>
+    <string name="retry">Retry</string>
+    <string name="no_data_available">No Data Available</string>
 </resources>
