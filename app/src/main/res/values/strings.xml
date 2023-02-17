@@ -7,4 +7,16 @@
     <string name="genres">Genres</string>
     <string name="retry">Retry</string>
     <string name="no_data_available">No Data Available</string>
+    <string name="poster">poster</string>
+    <string name="title">title</string>
+    <string name="text_rating">9.0</string>
+    <string name="image_font_shadow">Image Font Shadow</string>
+    <string name="detail_image">Detail Image</string>
+    <string name="overview">Overview</string>
+    <string name="release_date">Release Date</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It</string>
+    <string name="reviewer">Reviewer</string>
+    <string name="reviews">Reviews :</string>
+    <string name="videos">Videos</string>
+    <string name="none">"No Data "</string>
 </resources>

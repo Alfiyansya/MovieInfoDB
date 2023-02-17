@@ -2,8 +2,10 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
     id 'kotlin-android'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -19,8 +21,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "TMDB_API_KEY", '"404a0efb195004cad9722a7e5e502fb4"')
-        buildConfigField("String", "TMBD_BASE_URL", '"https://api.themoviedb.org/3/"')
+        buildConfigField("String", "TMDB_BASE_URL", '"https://api.themoviedb.org/3/"')
         buildConfigField("String", "TMDB_LANGUAGE", '"en-US"')
+        buildConfigField("String", "TMDB_IMAGE_BASE_URL", '"https://image.tmdb.org/t/p/w500"')
     }
 
     buildTypes {
@@ -69,4 +72,7 @@ dependencies {
 
     //lottie
     implementation 'com.airbnb.android:lottie:4.2.0'
+
+    //Picasso
+    implementation "com.squareup.picasso:picasso:2.71828"
 }

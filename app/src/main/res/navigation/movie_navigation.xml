@@ -9,5 +9,28 @@
         android:id="@+id/genreFragment"
         android:name="com.alfiansyah.movieinfodb.ui.genre.GenreListFragment"
         android:label="Movie Info DB"
-        tools:layout="@layout/fragment_genre_list" />
+        tools:layout="@layout/fragment_genre_list" >
+        <action
+            android:id="@+id/genreListToMovie"
+            app:destination="@id/movieListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieListFragment"
+        android:name="com.alfiansyah.movieinfodb.ui.movie.MovieListFragment"
+        android:label="Movie Info DB"
+        tools:layout="@layout/fragment_movie_list" >
+        <argument
+            android:name="genre"
+            app:argType="com.alfiansyah.movieinfodb.data.model.Genre" />
+        <action
+            android:id="@+id/movieListToDetailMovie"
+            app:destination="@id/detailMovieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailMovieFragment"
+        android:name="com.alfiansyah.movieinfodb.ui.detail.DetailMovieFragment"
+        android:label="Detail Movie">
+        <argument android:name="movieId"
+            app:argType="java.math.BigInteger" />
+    </fragment>
 </navigation>

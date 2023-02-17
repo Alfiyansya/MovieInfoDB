@@ -4,17 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alfiansyah.movieinfodb.data.entity.Genre
-import com.alfiansyah.movieinfodb.data.source.repo.AllRepositoryImpl
+import com.alfiansyah.movieinfodb.data.model.Genre
+import com.alfiansyah.movieinfodb.data.source.repo.AllRepository
+import com.alfiansyah.movieinfodb.utils.Result
 import com.alfiansyah.movieinfodb.utils.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.alfiansyah.movieinfodb.utils.Result
 
 @HiltViewModel
-class GenreListViewModel @Inject constructor(private val repository: AllRepositoryImpl): ViewModel() {
+class GenreListViewModel @Inject constructor( private val repository: AllRepository): ViewModel() {
     val genreListLiveData: LiveData<State<List<Genre>>> = MutableLiveData()
     private var job: Job? = null
 
@@ -36,7 +36,7 @@ class GenreListViewModel @Inject constructor(private val repository: AllReposito
                 is Result.Failed -> {
                     val error = result.throwable
                     error.printStackTrace()
-                    liveData.postValue(State.ErrorOccurred())
+                    liveData.postValue(State.ErrorOccurred(error.message ?: ""))
                 }
             }
         }

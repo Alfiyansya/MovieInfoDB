@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alfiansyah.movieinfodb.R
-import com.alfiansyah.movieinfodb.data.entity.Genre
+import com.alfiansyah.movieinfodb.data.model.Genre
 import com.alfiansyah.movieinfodb.databinding.FragmentGenreListBinding
 import com.alfiansyah.movieinfodb.ui.adapter.GenreListAdapter
+import com.alfiansyah.movieinfodb.ui.adapter.OnItemGenreClickCallback
+import com.alfiansyah.movieinfodb.ui.movie.MovieListFragmentArgs
 import com.alfiansyah.movieinfodb.utils.State
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -20,16 +23,15 @@ class GenreListFragment : Fragment() {
     private var _binding: FragmentGenreListBinding? = null
     private val binding get() = _binding
 
-    private val genreListViewModel: GenreListViewModel by viewModels()
+    private val genreListViewModel: GenreListViewModel by  viewModels()
 
     @Inject
-    lateinit var genreListAdapter: GenreListAdapter
+     lateinit var genreListAdapter: GenreListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val fragmentGenreListBinding = FragmentGenreListBinding.inflate(inflater, container, false)
         _binding = fragmentGenreListBinding
         return binding?.root
@@ -39,23 +41,30 @@ class GenreListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        initListener()
+        initObserver()
     }
 
     private fun setupRecyclerView() {
+        genreListAdapter = GenreListAdapter()
         with(binding?.rvGenre){
             this?.setHasFixedSize(true)
             val layoutManager = GridLayoutManager(requireContext(),3)
             this?.layoutManager = layoutManager
             this?.adapter = genreListAdapter
+            genreListAdapter.setOnItemClickCallback(object : OnItemGenreClickCallback{
+                override fun onItemClicked(genre: Genre) {
+                    val args = MovieListFragmentArgs(genre).toBundle()
+                    findNavController().navigate(R.id.genreListToMovie, args)
+                }
 
+            })
         }
     }
 
-    private fun initListener() {
+    private fun initObserver() {
         genreListViewModel.run {
             genreListLiveData.observe(viewLifecycleOwner) { handleLoadGenre(it) }
-            binding?.noDataView?.retryBtn?.setOnClickListener { loadDataGenre() }
+            binding?.noDataGenreListView?.retryBtn?.setOnClickListener { loadDataGenre() }
         }
     }
     private fun handleLoadGenre(it: State<List<Genre>>) {
@@ -94,12 +103,12 @@ class GenreListFragment : Fragment() {
     private fun showNoDataView(show: Boolean) {
         when(show){
             true -> {
-                binding?.textView?.text = resources.getString(R.string.check_internet)
-                binding?.noDataView?.root?.visibility = View.VISIBLE
+                binding?.infoTV?.text = resources.getString(R.string.check_internet)
+                binding?.noDataGenreListView?.root?.visibility = View.VISIBLE
             }
             else -> {
-                binding?.textView?.text = resources.getString(R.string.genres)
-                binding?.noDataView?.root?.visibility = View.GONE
+                binding?.infoTV?.text = resources.getString(R.string.genres)
+                binding?.noDataGenreListView?.root?.visibility = View.GONE
             }
 
         }
@@ -107,9 +116,9 @@ class GenreListFragment : Fragment() {
     private fun showLoadingView(show: Boolean) {
         when(show){
             true -> {
-                binding?.loadingView?.visibility = View.VISIBLE
+                binding?.loadingGenreListView?.visibility = View.VISIBLE
             }
-            else -> binding?.loadingView?.visibility = View.GONE
+            else -> binding?.loadingGenreListView?.visibility = View.GONE
 
         }
     }
